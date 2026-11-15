@@ -19,7 +19,7 @@ import urllib.request
 import fitz
 
 MM = 72 / 25.4
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 CACHE = os.path.join(ROOT, "data", "hanzi")
 CDN = "https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0.1/{}.json"
 
@@ -198,6 +198,7 @@ def build(chars, cols, per_page, size_mm, margin_mm, inner_gap_mm, group_gap_mm,
     doc.close()
 
     if preview:
+        os.makedirs(os.path.dirname(os.path.abspath(preview)), exist_ok=True)
         d = fitz.open(out)
         page = d[0]
         # 预览图裁掉下方空白，只留内容加一点边

@@ -28,6 +28,17 @@
 
 米字格本身是外框矩形加横竖中线、两条对角线，中线和对角线用虚线画。
 
+## 当作 AI Skill 安装
+
+这个仓库根目录有 `SKILL.md`，它本身就是一个 skill。把它克隆进 agent 的 skills 目录，之后不用记参数，直接说「给一年级出个字帖：人不在我是」，agent 就会调脚本生成 PDF。
+
+```
+git clone git@github.com:xieyan0811/zitie.git ~/.claude/skills/zitie
+pip install pymupdf
+```
+
+CodeBuddy 用 `~/.codebuddy/skills/zitie`，GitHub Copilot CLI 用 `~/.copilot/skills/zitie`，别的 agent 换成各自的 skill 目录。
+
 ## 用法
 
 ```
@@ -84,6 +95,8 @@ python3 src/make_zitie.py --chars 张一鸣张一鸣张一鸣 -o output/名字.p
 ## 目录
 
 `src/make_zitie.py` 主脚本，全部逻辑都在这一个文件里。
+
+`SKILL.md` skill 定义，装了之后可以让 agent 直接调用。
 
 `data/hanzi/` 抓过的字数据缓存，可以整个删掉，下次运行自动重抓。
 
