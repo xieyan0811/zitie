@@ -199,7 +199,11 @@ def build(chars, cols, per_page, size_mm, margin_mm, inner_gap_mm, group_gap_mm,
 
     if preview:
         d = fitz.open(out)
-        d[0].get_pixmap(dpi=110).save(preview)
+        page = d[0]
+        # 预览图裁掉下方空白，只留内容加一点边
+        bottom = max((dr["rect"].y1 for dr in page.get_drawings()), default=page.rect.height)
+        clip = fitz.Rect(0, 0, page.rect.width, min(page.rect.height, bottom + 20))
+        page.get_pixmap(dpi=110, clip=clip).save(preview)
         d.close()
 
 
